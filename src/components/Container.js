@@ -1,4 +1,6 @@
 import React from "react"
+import TodoList from "./TodoList"
+import Header from "./Header"
 
 class Container extends React.Component {
     state = {
@@ -22,12 +24,12 @@ class Container extends React.Component {
     }
     render() {
         return (
-            <ul>
-                {this.state.todos.map(todo => (
-                    <li>{todo.title}</li>
-                ))}
-            </ul>
+            <div>
+                <Header />
+                <TodoList todos={this.state.todos} />
+            </div>
         )
     } 
 }
+
 export default Container
