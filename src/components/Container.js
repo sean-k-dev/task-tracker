@@ -1,22 +1,24 @@
 import React from "react"
 import TodoList from "./TodoList"
 import Header from "./Header"
+import TodoInput from "./TodoInput"
+import {v4 as uuidv4} from "uuid"
 
 class Container extends React.Component {
     state = {
         todos: [
             {
-                id: 1,
+                id: uuidv4(),
                 title: "Watch new seasonal shows",
                 completed: true
             },
             {
-                id: 2,
+                id: uuidv4(),
                 title: "Get at least 10,000 steps",
                 completed: true
             },
             {
-                id: 3,
+                id: uuidv4(),
                 title: "Fully learn how to use React",
                 completed: false
             }
@@ -46,10 +48,21 @@ class Container extends React.Component {
         })
         console.log("Deleted entry with ID:", id)
     }
+    addTodo = (title) => {
+        const newTodo = {
+            id: uuidv4(),
+            title: title,
+            completed: false
+        }
+        this.setState({
+            todos: [...this.state.todos, newTodo]
+        })
+    }
     render() {
         return (
             <div>
                 <Header />
+                <TodoInput addTodoProps={this.addTodo} />
                 <TodoList 
                     todos={this.state.todos} 
                     eventHandlerProps={this.eventHandler}
