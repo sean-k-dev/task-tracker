@@ -60,14 +60,16 @@ class Container extends React.Component {
     }
     render() {
         return (
-            <div>
-                <Header />
-                <TodoInput addTodoProps={this.addTodo} />
-                <TodoList 
-                    todos={this.state.todos} 
-                    eventHandlerProps={this.eventHandler}
-                    deleteTodoProps={this.deleteTodo}
-                />
+            <div className="container">
+                <div className="inner-container">
+                    <Header />
+                    <TodoInput addTodoProps={this.addTodo} />
+                    <TodoList 
+                        todos={this.state.todos} 
+                        eventHandlerProps={this.eventHandler}
+                        deleteTodoProps={this.deleteTodo}
+                    />
+                </div>
             </div>
         )
     } 
