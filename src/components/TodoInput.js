@@ -20,9 +20,12 @@ class TodoInput extends React.Component {
     }
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <input type="text" placeholder="Add new task" value={this.state.title} name="title" onChange={this.onChange} />
-                <button>Submit</button>
+            <form onSubmit={this.handleSubmit} className="input-container">
+                <input className="input-text" type="text" placeholder="Enter new task here" value={this.state.title} name="title" onChange={this.onChange} />
+                <button className="input-submit">
+                    <span className="input-submit-front">Submit</span>
+                </button>
+                
             </form>
         )
     }
