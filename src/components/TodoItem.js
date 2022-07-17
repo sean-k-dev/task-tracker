@@ -2,6 +2,19 @@ import React from "react"
 import styles from "./TodoItem.module.css"
 
 class TodoItem extends React.Component {
+    state = {
+        editing: false,
+      }
+      editTodo = () => {
+        this.setState({
+            editing: true,
+        })
+      }
+      editTodoCompleted = event => {
+        if (event.key === "Enter") { 
+          this.setState({editing: false}) 
+        }
+      }
     render() {
         const completedStyle = {
             fontStyle: "italic",
@@ -10,19 +23,39 @@ class TodoItem extends React.Component {
             textDecoration: "line-through",
           }
         const { completed, id, title } = this.props.todo
+        let viewMode = {}
+        let editMode = {}
+
+        if (this.state.editing) {
+            viewMode.display = "hidden"
+            editMode.display = "block"
+          } else {
+            viewMode.display = "block"
+            editMode.display = "none"
+          }
         return (
-        <li className={styles.item}>
-            <input 
-                type="checkbox"
-                className={styles.checkbox}
-                checked={completed}
-                onChange={() => this.props.eventHandlerProps(id)}
-            />
-            <button onClick={() => this.props.deleteTodoProps(id)}>Delete Task</button>
-            <span style={completed ? completedStyle : null}>
-                {title}
-            </span>
-        </li>
+        <div onDoubleClick={this.editTodo} style={viewMode}>
+            <li className={styles.item}>
+                <input 
+                    type="checkbox"
+                    className={styles.checkbox}
+                    checked={completed}
+                    onChange={() => this.props.eventHandlerProps(id)}
+                />
+                <button onClick={() => this.props.deleteTodoProps(id)}>Delete Task</button>
+                <span style={completed ? completedStyle : null}>
+                    {title}
+                </span>
+                <input type="text"
+                    placeholder="Edit this task"
+                    value={title}
+                    style={editMode}
+                    className={styles.textInput}
+                    onChange={e => {this.props.setUpdate(e.target.value, id)}}
+                    onKeyDown={this.editTodoCompleted}
+                />
+            </li>
+        </div>
         )
     }
 }
