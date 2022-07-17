@@ -6,23 +6,25 @@ import {v4 as uuidv4} from "uuid"
 
 class Container extends React.Component {
     state = {
-        todos: [
-            {
-                id: uuidv4(),
-                title: "Watch new seasonal shows",
-                completed: true
-            },
-            {
-                id: uuidv4(),
-                title: "Get at least 10,000 steps",
-                completed: true
-            },
-            {
-                id: uuidv4(),
-                title: "Fully learn how to use React",
-                completed: false
-            }
-        ]
+        todos: []
+    }
+    componentDidMount() {
+        const temp = localStorage.getItem("tasks")
+        const parseTasks = JSON.parse(temp)
+        if (parseTasks) {
+            this.setState({
+                todos: parseTasks
+            })
+        }
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.todos !== this.state.todos) {
+            const temp = JSON.stringify(this.state.todos)
+            localStorage.setItem("tasks", temp)
+        }
+    }
+    componentWillUnmount() {
+        console.log("Cleaning up data...")
     }
     eventHandler = (id) => {
         this.setState(prevState => ({
