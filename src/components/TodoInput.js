@@ -1,4 +1,5 @@
 import React from "react"
+import { RiAddBoxFill } from "react-icons/ri"
 
 class TodoInput extends React.Component {
     state = {
@@ -23,7 +24,9 @@ class TodoInput extends React.Component {
             <form onSubmit={this.handleSubmit} className="input-container">
                 <input className="input-text" type="text" placeholder="Enter new task here" value={this.state.title} name="title" onChange={this.onChange} />
                 <button className="input-submit">
-                    <span className="input-submit-front">Submit</span>
+                    <span className="input-submit-front">
+                        <RiAddBoxFill />
+                    </span>
                 </button>
                 
             </form>
