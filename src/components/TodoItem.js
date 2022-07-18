@@ -1,5 +1,7 @@
 import React from "react"
 import styles from "./TodoItem.module.css"
+import { IoTrashOutline } from "react-icons/io5"
+
 
 class TodoItem extends React.Component {
     state = {
@@ -42,7 +44,9 @@ class TodoItem extends React.Component {
                     checked={completed}
                     onChange={() => this.props.eventHandlerProps(id)}
                 />
-                <button onClick={() => this.props.deleteTodoProps(id)}>Delete Task</button>
+                <button onClick={() => this.props.deleteTodoProps(id)}>
+                  <IoTrashOutline />
+                </button>
                 <span style={completed ? completedStyle : null}>
                     {title}
                 </span>
