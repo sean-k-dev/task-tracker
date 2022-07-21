@@ -14,7 +14,6 @@ import "./App.css"
 ReactDOM.render(
     <React.StrictMode>
         <Router>
-            {/* <Navbar/> */}
             <Routes>
                 <Route path="/" element={<Container/>}/>
                 <Route path="about/*" element={<About/>}/>
