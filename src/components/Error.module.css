@@ -1,0 +1,23 @@
+* {
+    text-align: center;
+}
+
+h3 {
+    font-size: 35px;
+    margin-top: 20px;
+}
+
+h4 {
+    margin: 25px 0  ;
+    font-size: 25px;
+}
+
+.item {
+    border: 1px solid grey;
+    border-radius: 20px;
+    width: 70%;
+}
+
+img {
+    width: 500px;
+}
