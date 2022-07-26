@@ -8,7 +8,14 @@ class Container extends React.Component {
     state = {
         todos: []
     }
+    callAPI() {
+        fetch(`http://localhost:3000/testAPI`)
+        .then((data) => {
+            console.log(data)
+        })
+    }
     componentDidMount() {
+        this.callAPI()
         const temp = localStorage.getItem("tasks")
         const parseTasks = JSON.parse(temp)
         if (parseTasks) {
