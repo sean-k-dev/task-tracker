@@ -5,15 +5,11 @@ import TodoInput from "./TodoInput"
 import {v4 as uuidv4} from "uuid"
 
 class Container extends React.Component {
-    state = {
-        todos: []
+     state = {
+        todos: [],
+        items: null
     }
-    callAPI() {
-        fetch(`http://localhost:3000/testAPI`)
-        .then((data) => {
-            console.log(data)
-        })
-    }
+
     componentDidMount() {
         this.callAPI()
         const temp = localStorage.getItem("tasks")
@@ -24,15 +20,28 @@ class Container extends React.Component {
             })
         }
     }
+
     componentDidUpdate(prevProps, prevState) {
         if (prevState.todos !== this.state.todos) {
             const temp = JSON.stringify(this.state.todos)
             localStorage.setItem("tasks", temp)
         }
     }
+
     componentWillUnmount() {
         console.log("Cleaning up data...")
     }
+
+    callAPI() {
+        fetch(`/api`)
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data)
+            this.setState({items: data})
+        })
+        .catch(err => err)
+    }
+
     eventHandler = (id) => {
         this.setState(prevState => ({
             todos: prevState.todos.map(todo => {
@@ -47,6 +56,7 @@ class Container extends React.Component {
     }))
         console.log("ID:", id)
     }
+
     deleteTodo = (id) => {
         this.setState({
             todos: [
@@ -57,6 +67,7 @@ class Container extends React.Component {
         })
         console.log("Deleted entry with ID:", id)
     }
+
     addTodo = (title) => {
         const newTodo = {
             id: uuidv4(),
@@ -67,6 +78,7 @@ class Container extends React.Component {
             todos: [...this.state.todos, newTodo]
         })
     }
+
     setUpdate = (updatedTitle, id) => {
         this.setState({
             todos: this.state.todos.map(todo => {
@@ -77,22 +89,23 @@ class Container extends React.Component {
             }),
         })
     }
+
     render() {
         return (
-                        <div className="container">
-                            <div className="inner-container">
-                                <Header />
-                                <TodoInput addTodoProps={this.addTodo} />
-                                <TodoList 
-                                    todos={this.state.todos} 
-                                    eventHandlerProps={this.eventHandler}
-                                    deleteTodoProps={this.deleteTodo}
-                                    setUpdate={this.setUpdate}
-                                />
-                            </div>
-                        </div>
-        )
-    } 
+                <div className="container">
+                    <div className="inner-container">
+                        <Header />
+                        <TodoInput addTodoProps={this.addTodo} />
+                        <TodoList
+                            todos={this.state.todos} 
+                            eventHandlerProps={this.eventHandler}
+                            deleteTodoProps={this.deleteTodo}
+                            setUpdate={this.setUpdate}
+                        />
+                    </div>
+                </div>
+            )
+        } 
 }
 
 export default Container
